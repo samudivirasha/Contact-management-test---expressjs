@@ -6,7 +6,7 @@ const port = 3000;
 app.use(express.json());
 
 
-let x = 5;
+//let x = 5;
 
 let mymap = new Map();
 
@@ -19,6 +19,11 @@ app.get('/showdata', (req, res) => {
   res.json(mapObj);
 });
 
+app.get('/showdata/:name', (req, res) => {
+  res.send(mymap.get(req.params.name));
+});
+
+
 app.post('/adddata', function(req, res) {
 var name = req.body.name;
 var contact = req.body.contact;
@@ -28,6 +33,11 @@ mymap.set (name,contact);
   res.send(req.body);
 });
 
+app.post('/showdatapost', function(req, res) {
+  var name = req.body.name;
+  console.log("name is",name);
+  res.send(mymap.get(name));
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
