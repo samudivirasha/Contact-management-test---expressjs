@@ -6,7 +6,7 @@ const port = 3000;
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-const mongoURI = "mongodb://localhost:27017/";
+const mongoURI = "mongodb://localhost:27017/contactdb";
 mongoose.connect(mongoURI,{useNewUrlParser: true, useUnifiedTopology: true});
 
 
@@ -38,16 +38,15 @@ app.post('/adddata', function(req, res) {
   
   cont
   .save()
-  .then(() => res.send(req.body))
-  .error((err) => res.send(err));
+  .then(() => res.send(req.body) , (err) => res.send(err));
   });
 
 
 
 // Sample route
-app.get('/showdata', (req, res) => {
-  //const mapObj = Object.fromEntries(mymap);
-  res.json(mapObj);
+app.get('/showdata', async (req, res) => {
+  const contacts = await Contact.find({}).lean();
+  res.json({contacts:contacts});
 });
 
 app.get('/showdata/:name', (req, res) => {
