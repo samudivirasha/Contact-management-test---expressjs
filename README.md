@@ -33,8 +33,6 @@ To run this project, ensure you have the following installed:
    git clone https://github.com/yourusername/contact-management-api.git
    cd contact-management-api
 
-
-
 2. Install dependencies:
 npm install
 
@@ -49,54 +47,55 @@ node app.js
 5. The server will be running at http://localhost:3000.
    
 
-API Endpoints
-Add a Contact
-URL: /adddata
-Method: POST
-Body:
-json
+<br>
 
+
+### API Endpoints
+
+#### Add a Contact
+URL:  `/adddata`
+Method: `POST`
+Body:
+```json
 {
   "name": "John Doe",
   "contact": "1234567890"
 }
+```
 
+#### Get All Contacts
+URL: `/showdata`
+Method: `GET`
 
-Get All Contacts
-URL: /showdata
-Method: GET
+#### Get Contact by Name
+URL: `/showdata/:name`
+Method: `GET`
 
+#### Get Contact by Phone Number
+URL: `/showdatacon/:contact`
+Method: `GET`
 
-Get Contact by Name
-URL: /showdata/:name
-Method: GET
-
-
-Get Contact by Phone Number
-URL: /showdatacon/:contact
-Method: GET
-
-
-Update Contact by Name
-URL: /updatedata/:name
-Method: PUT
-
+#### Update Contact by Name
+URL: `/updatedata/:name`
+Method: `PUT`
+```json
 Body:
 {
   "contact": "0987654321"
 }
+```
 
+#### Update Contact by Phone Number
+URL: `/updatedatabycon/:contact`
+Method: `PUT`
 
-Update Contact by Phone Number
-URL: /updatedatabycon/:contact
-Method: PUT
-
+```json
 Body:
 {
   "name": "Jane Doe"
 }
+```
 
-
-Delete Contact by Name
-URL: /deletedata/:name
-Method: DELETE
+#### Delete Contact by Name
+URL: `/deletedata/:name`
+Method: `DELETE`
