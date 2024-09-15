@@ -90,6 +90,18 @@ app.put('/updatedata/:name', async (req, res) => {
 
 });
 
+//delete data
+
+app.delete('/deletedata/:name', async (req, res) => {
+  const reqname = req.params.name
+
+  //delete one
+  const contact = await Contact.findOneAndDelete({name:reqname});
+
+  res.send("data deleted");
+
+})
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
