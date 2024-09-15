@@ -35,18 +35,19 @@ To run this project, ensure you have the following installed:
 
 
 
-Install dependencies:
+2. Install dependencies:
 npm install
 
 
-Start MongoDB (if it's not already running):
+3. Start MongoDB (if it's not already running):
 mongod
 
 
-Run the application:
+4. Run the application:
 node app.js
 
-The server will be running at http://localhost:3000.
+5. The server will be running at http://localhost:3000.
+   
 
 API Endpoints
 Add a Contact
