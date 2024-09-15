@@ -104,8 +104,8 @@ app.put('/updatedatabycon/:contact', async (req, res) => {
     const reqcon = req.params.contact;
 
   const contact = await Contact.findOneAndUpdate (
-    {name:reqname},
     {contact:reqcon},
+    {name:reqname},
     {new:true}
 
   );
