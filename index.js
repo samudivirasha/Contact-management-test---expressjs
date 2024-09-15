@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 //app setup
 const app = express();
 const port = 3000;
-// Middleware to parse JSON bodies
+
+
 app.use(express.json());
 
 //connect to db
@@ -28,9 +29,7 @@ const contactsSchema = new mongoose.Schema({
 //model
 const Contact = mongoose.model('contact', contactsSchema);
 
-//let x = 5;
 
-//let mymap = new Map();
 app.post('/adddata', function(req, res) {
   var reqname = req.body.name;
   var reqcontact = req.body.contact;
@@ -46,9 +45,7 @@ app.post('/adddata', function(req, res) {
   .then(() => res.send(req.body) , (err) => res.send(err));
   });
 
-
-
-// Sample route
+//get data
 app.get('/showdata', async (req, res) => {
   const contacts = await Contact.find({}).lean();
   if (contacts.length == 0){
@@ -68,9 +65,18 @@ app.get('/showdata/:name', async (req, res) => {
 });
 
 
+app.get('/showdatacon/:contact', async (req, res) => {
+  const reqcontact = req.params.contact;
+  const contacts = await Contact.find({contact : reqcontact}).lean();
+  if (contacts.length == 0){
+    res.send("no data found");
+  }
+  res.json({name : contacts[0].name, contact : contacts[0].contact});
+});
 
 
-//update data in mdb
+
+//update data 
 app.put('/updatedata/:name', async (req, res) => {
   const reqname = req.params.name;
   const reqcon = req.body.contact;
@@ -90,12 +96,40 @@ app.put('/updatedata/:name', async (req, res) => {
 
 });
 
+
+app.put('/updatedatabycon/:contact', async (req, res) => {
+
+  try { 
+    const reqname = req.body.name;
+    const reqcon = req.params.contact;
+
+  const contact = await Contact.findOneAndUpdate (
+    {name:reqname},
+    {contact:reqcon},
+    {new:true}
+
+  );
+
+  if (!contact){
+    res.status(404).send("data not found");
+    }
+    else {
+      res.json({name : contact.name, contact : contact.contact});
+    }
+    
+  } catch (error) {
+     res.status(500).send(error) 
+     }
+  
+  
+});
+
 //delete data
 
 app.delete('/deletedata/:name', async (req, res) => {
   const reqname = req.params.name
 
-  //delete one
+
   const contact = await Contact.findOneAndDelete({name:reqname});
 
   res.send("data deleted");
